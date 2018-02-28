@@ -1,0 +1,52 @@
+#!/bin/bash -e
+
+RUN_DIR=/var/vcap/sys/run/graphite-reporter
+LOG_DIR=/var/vcap/sys/log/graphite-reporter
+PIDFILE=${RUN_DIR}/graphite-reporter.pid
+JOB_DIR=/var/vcap/jobs/graphite-reporter
+CERT_DIR=$JOB_DIR/config/certs
+
+PACKAGE_DIR=/var/vcap/packages/graphite-reporter
+ENVIRONMENT=/var/vcap/jobs/graphite-reporter/bin/environment.sh
+
+case $1 in
+
+  start)
+    set +e
+      killall -15 graphite-reporter
+      killall -9 graphite-reporter
+      killall -2 graphite-reporter
+      killall -3 graphite-reporter
+    set -e
+
+    mkdir -p $RUN_DIR $LOG_DIR
+    chown -R vcap:vcap $RUN_DIR $LOG_DIR
+
+    cd $PACKAGE_DIR
+
+    ulimit -n 8192
+
+    source $ENVIRONMENT
+    echo $$ > $PIDFILE
+    exec chpst -u vcap:vcap ./bin/graphite-reporter &>> ${LOG_DIR}/graphite-reporter.log
+
+    ;;
+
+  stop)
+    set +e
+      killall -15 graphite-reporter
+      killall -9 graphite-reporter
+      killall -2 graphite-reporter
+      killall -3 graphite-reporter
+    set -e
+
+    rm -f $PIDFILE
+
+    ;;
+
+  *)
+    echo "Usage: ctl {start|stop}"
+
+    ;;
+
+esac

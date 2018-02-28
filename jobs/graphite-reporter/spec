@@ -1,0 +1,32 @@
+---
+name: graphite-reporter
+
+templates:
+  ctl.erb: bin/ctl
+  environment.sh.erb: bin/environment.sh
+
+packages:
+- graphite-reporter
+
+consumes:
+- name: accumulator
+  type: accumulator
+- name: nozzle
+  type: nozzle
+
+properties:
+  capi.addr:
+    description: "The address to the cloud controller API"
+
+  tls.skip_cert_verify:
+    description: "Skip TLS cert verify for both UAA and Loggregator"
+    default: false
+
+  reporter:
+    graphite-prefix:
+      description: "Prefix used when sending metrics to graphite"
+    metrics-host:
+      description: "Target (graphite) endpoint host where to send the metrics"
+    metrics-port:
+      description: "Target (graphite) endpoint port where to send the metrics"
+      default: 2003

@@ -1,0 +1,16 @@
+<%
+  nozzle = link("nozzle")
+  accumulator = link("accumulator")
+  accumulator_addrs = accumulator.instances.map do |i|
+    "http://#{i.address}:#{accumulator.p("http.port")}"
+  end
+%>
+export UAA_ADDR="<%= nozzle.p("uaa.addr") %>"
+export CLIENT_ID="<%= nozzle.p("uaa.client_id") %>"
+export CLIENT_SECRET="<%= nozzle.p("uaa.client_secret") %>"
+export SKIP_CERT_VERIFY="<%= p("tls.skip_cert_verify") %>"
+export CAPI_ADDR="<%= p("capi.addr") %>"
+export ACCUMULATOR_ADDR="<%= accumulator_addrs.first %>"
+export GRAPHITE_PREFIX="<%= p("reporter.graphite-prefix") %>"
+export METRICS_HOST="<%= p("reporter.metrics-host") %>"
+export METRICS_PORT="<%= p("reporter.metrics-port") %>"

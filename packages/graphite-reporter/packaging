@@ -1,0 +1,28 @@
+set -e -x
+
+GRAPHITE_REPORTERS_VERSION=0.2
+GRAPHITE_REPORTERS_PKG=github.com/SpringerPE/noisy-neighbor-reporters
+
+echo "Setting the GO env variables ..."
+export GOROOT=$(readlink -nf /var/vcap/packages/golang1.9.4)
+export GOPATH=${BOSH_INSTALL_TARGET}
+export PATH=$GOROOT/bin:$PATH
+
+echo "Extracting graphite-reporters ${GRAPHITE_REPORTERS_VERSION} ..."
+mkdir -p ${GOPATH}/src/${GRAPHITE_REPORTERS_PKG}
+
+mkdir -p tmp
+
+tar xvf noisy-neighbor-reporters/${GRAPHITE_REPORTERS_VERSION}.tar.gz --directory=./tmp
+pushd tmp
+	cp -r noisy-neighbor-reporters-${GRAPHITE_REPORTERS_VERSION}/* $GOPATH/src/${GRAPHITE_REPORTERS_PKG}
+popd
+echo "Building graphite-reporters..."
+pushd $GOPATH/src/${GRAPHITE_REPORTERS_PKG}
+        go build -o graphite-reporter cmd/graphite-reporter/main.go
+        mkdir -p ${BOSH_INSTALL_TARGET}/bin
+        install -m 0755 graphite-reporter ${BOSH_INSTALL_TARGET}/bin
+popd
+
+# clean up source artifacts
+rm -rf ${BOSH_INSTALL_TARGET}/src ${BOSH_INSTALL_TARGET}/pkg

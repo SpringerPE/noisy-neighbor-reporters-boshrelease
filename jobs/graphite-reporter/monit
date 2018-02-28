@@ -1,0 +1,6 @@
+check process graphite-reporter
+  with pidfile /var/vcap/sys/run/graphite-reporter/graphite-reporter.pid
+  start program "/var/vcap/jobs/graphite-reporter/bin/ctl start"
+  stop program "/var/vcap/jobs/graphite-reporter/bin/ctl stop"
+  group vcap
+  
