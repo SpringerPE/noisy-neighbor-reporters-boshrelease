@@ -1,0 +1,6 @@
+---
+blobstore:
+  provider: s3
+  options:
+    bucket_name: noisy-neighbor-reporters-release
+final_name: noisy-neighbor-reporters-release

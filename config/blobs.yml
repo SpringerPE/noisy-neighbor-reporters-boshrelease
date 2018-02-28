@@ -1,0 +1,9 @@
+---
+noisy-neighbor-reporters/0.2.tar.gz:
+  object_id: d2103358-4fe8-427c-bdbb-b22b3585a13a
+  sha: 6a42d6bb3a96b57102a240cb3aab4780c0a52135
+  size: 4667755
+golang/go1.9.4.linux-amd64.tar.gz:
+  object_id: fea06def-a1ee-47a4-9870-c23f8819d12c
+  sha: ed1bd37c356338a5a04923c183931a96687f202e
+  size: 105600650
