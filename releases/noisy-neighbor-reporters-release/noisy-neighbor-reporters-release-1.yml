@@ -1,0 +1,26 @@
+---
+packages:
+- name: graphite-reporter
+  version: 3c040e2a0e86618778ed5971f2390d87a806268a
+  fingerprint: 3c040e2a0e86618778ed5971f2390d87a806268a
+  sha1: 78ea302a99c91c8f13d59901d3a0e13899fce1ad
+  dependencies:
+  - golang1.9.4
+- name: golang1.9.4
+  version: 16375c0c5d6666c054253735dc3722e66bcbcb07
+  fingerprint: 16375c0c5d6666c054253735dc3722e66bcbcb07
+  sha1: 321c42df46ad6abb571933f0acbda5917a143789
+  dependencies: []
+jobs:
+- name: graphite-reporter
+  version: 558d30c5063c2c7083693d47b87de3f59a83b8e4
+  fingerprint: 558d30c5063c2c7083693d47b87de3f59a83b8e4
+  sha1: dedd2626398dbbad3029f009854ca1e14638dc52
+license:
+  version: e4a51be8a0562047e07fe410b5118c3cde60c458
+  fingerprint: e4a51be8a0562047e07fe410b5118c3cde60c458
+  sha1: c959d4b2a66d14cea9cc890b3f1354561f7aa673
+commit_hash: '00000000'
+uncommitted_changes: false
+name: noisy-neighbor-reporters-release
+version: '1'
