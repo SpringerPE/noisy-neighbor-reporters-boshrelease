@@ -10,3 +10,16 @@ for the [Noisy Neighbor Reporters](https://github.com/SpringerPE/noisy-neighbor-
 # Dependencies
 
 The Noisy neighbor reporters release depends at the moment on the [cf-light-api](https://github.com/SpringerPE/cf-light-api) a lightweight cached api for Cloudfoundry.
+
+# How to use this release
+
+- Upload first the release to BOSH:
+
+```
+bosh upload release https://github.com/SpringerPE/noisy-neighbor-reporters-boshrelease/releases/download/v1/noisy-neighbor-reporters-release-1.tgz
+
+```
+
+- Create a manifest following the model in `manifests/noisy-nozzle.vsphere.yaml` and adapting it to your infrastructure and needs
+
+- Point to the manifest with `bosh deployment noisy-nozzle-manifest.yaml` and `bosh deploy`!
