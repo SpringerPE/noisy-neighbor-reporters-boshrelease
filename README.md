@@ -6,3 +6,7 @@ This is the [BOSH](bosh) release for the
 
 For more information on how the reporters release works and configuration, see the README
 for the [Noisy Neighbor Reporters](https://github.com/SpringerPE/noisy-neighbor-reporters.git).
+
+# Dependencies
+
+The Noisy neighbor reporters release depends at the moment on the [cf-light-api](https://github.com/SpringerPE/cf-light-api) a lightweight cached api for Cloudfoundry.
