@@ -1,0 +1,79 @@
+---
+name: noisy-neighbor-nozzle
+
+director_uuid: # replace with `bosh status --uuid`
+
+releases:
+- name: noisy-neighbor-nozzle
+  version: 0+dev.1
+- name: noisy-neighbor-reporters-release
+  version: 1
+
+instance_groups:
+- name: noisy-neighbor-nozzle
+  instances: 2
+  vm_type: small
+  stemcell: trusty
+  vm_extensions: []
+  azs:
+  - z1
+  - z2
+  networks:
+  - name: test
+  jobs:
+  - name: nozzle
+    release: noisy-neighbor-nozzle
+  properties:
+    uaa: 
+      addr: https://uaa.example.com
+      client_id: noisy-neighbor-nozzle
+      client_secret: "my-client-secret"
+    loggregator:
+      addr: "wss://doppler.test.example.com:4443"
+      subscription_id: nozzle-test-subscription
+    include_router_logs: false
+
+- name: noisy-neighbor-accumulator
+  instances: 1
+  vm_type: small
+  stemcell: trusty
+  vm_extensions: []
+  azs:
+  - z1
+  networks:
+  - name: test
+  jobs:
+  - name: accumulator
+    release: noisy-neighbor-nozzle
+
+- name: noisy-neighbor-graphite-reporter
+  instances: 1
+  vm_type: small
+  stemcell: trusty
+  vm_extensions: []
+  azs:
+  - z1
+  networks:
+  - name: test
+  jobs:
+  - name: graphite-reporter
+    release: noisy-neighbor-reporters-release
+  properties:
+    reporter:
+      graphite-prefix: "test.noisy-neighbor-nozzle"
+      metrics-host: "graphite.example.com"
+      metrics-port: 2003
+    capi:
+      addr: "https://cf-api.test.example.com"
+
+stemcells:
+- alias: trusty
+  name: bosh-vsphere-esxi-ubuntu-trusty-go_agent
+  version: latest
+
+update:
+  canaries: 1
+  max_in_flight: 1
+  serial: false
+  canary_watch_time: 1000-60000
+  update_watch_time: 1000-60000
